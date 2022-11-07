@@ -12,6 +12,11 @@ namespace upc {
 
     for (unsigned int l = 0; l < r.size(); ++l) {
   		/// \TODO Compute the autocorrelation r[l]
+      /// \FET Autocorrelation computed
+      /// - Inicialitzem l'autocorrelació a 0
+      /// - Afegim el producte
+      /// - Dividim per la durada
+      /// *** TAXANNNN ***
       r[l]=0;
       for(unsigned int n=l; n< x.size(); n++){
         r[l] += x[n]*x[n-l];
@@ -55,7 +60,9 @@ namespace upc {
     /// \TODO Implement a rule to decide whether the sound is voiced or not.
     /// * You can use the standard features (pot, r1norm, rmaxnorm),
     ///   or compute and use other ones.
-    return false;
+    if(rmaxnorm> umaxnorm) return false;
+  
+    return true;
   }
 
   float PitchAnalyzer::compute_pitch(vector<float> & x) const {
@@ -80,8 +87,8 @@ namespace upc {
 	///    - The lag corresponding to the maximum value of the pitch.
     ///	   .
 	/// In either case, the lag should not exceed that of the minimum value of the pitch.
-    for(iR = r.begin() + npitch_min; iR< r.begin()+ npitch_max; iR++){ //Com que el màxim ha d'estar entre en màx i el mín pitch fem el for que recorri aquest espai
-      if(iR>iRMax){
+    for(iRMax = iR = r.begin() + npitch_min; iR< r.begin()+ npitch_max; iR++){ //Com que el màxim ha d'estar entre en màx i el mín pitch fem el for que recorri aquest espai
+      if(*iR>*iRMax){
         iRMax= iR;   //Si el iR és més gran que el màxim, actualitzem el valor d'aquest màxim
       }
     }
