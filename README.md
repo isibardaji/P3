@@ -31,6 +31,8 @@ Ejercicios básicos
 
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
 
+    <img src="regla_decisio_sonor_sord.png" align="center">
+
    * Puede serle útil seguir las instrucciones contenidas en el documento adjunto `código.pdf`.
 
 - Una vez completados los puntos anteriores, dispondrá de una primera versión del estimador de pitch. El 
