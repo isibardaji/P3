@@ -26,6 +26,8 @@ Usage:
 
 Options:
     -m REAL, --umaxnorm=REAL  Llindar/umbral del màxim de l'autocorrelació [default: 0.6]
+    -n REAL, --unorm=REAL  Llindar/umbral de l'autocorrelació normalitzada [default: 1]
+    -p REAL, --upot=REAL  Llindar/umbral potència [default: 10]
     -h, --help  Show this screen
     --version   Show the version of the project
 
@@ -48,7 +50,8 @@ int main(int argc, const char *argv[]) {
 	std::string input_wav = args["<input-wav>"].asString();
 	std::string output_txt = args["<output-txt>"].asString();
   float umaxnorm = stof(args["--umaxnorm"].asString());
-  
+ float upot = stof(args["--upot"].asString());
+float unorm = stof(args["--unorm"].asString());
   // Read input sound file
   unsigned int rate;
   vector<float> x;
@@ -70,7 +73,9 @@ int main(int argc, const char *argv[]) {
   // Iterate for each frame and save values in f0 vector
   vector<float>::iterator iX;
   vector<float> f0;
+
   for (iX = x.begin(); iX + n_len < x.end(); iX = iX + n_shift) {
+    
     float f = analyzer(iX, iX + n_len);
     f0.push_back(f);
   }

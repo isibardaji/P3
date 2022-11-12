@@ -31,6 +31,8 @@ namespace upc {
       npitch_min, ///< minimum value of pitch period, in samples
       npitch_max; ///< maximum value of pitch period, in samples
       float umaxnorm;
+      float unorm; //Umbral autoc normalitzada
+      float upot; //Umbral potència
 	///
 	/// Computes correlation from lag=0 to r.size()
 	///
@@ -53,12 +55,16 @@ namespace upc {
 					Window w=PitchAnalyzer::HAMMING,	///< Window type
 					float min_F0 = MIN_F0,		///< Pitch range should be restricted to be above this value
 					float max_F0 = MAX_F0,		///< Pitch range should be restricted to be below this value
-				  float umaxnorm_ =0 //umbral per a autocorrelacio maxima normalitzada
+				  float umaxnorm_ =0, //umbral per a autocorrelacio maxima normalitzada
+          float unorm_=0, //umbral autoc normalitzada
+          float upot_= 0 //umbral pot
          )
 	{
       frameLen = fLen;
       samplingFreq = sFreq;
       umaxnorm = umaxnorm_;
+      unorm = unorm_;
+      upot = upot_;
       set_f0_range(min_F0, max_F0);
       set_window(w);
     }

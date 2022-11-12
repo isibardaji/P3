@@ -1,0 +1,22 @@
+
+
+get_pitch - Pitch Estimator 
+
+Usage:
+    get_pitch [options] <input-wav> <output-txt>
+    get_pitch (-h | --help)
+    get_pitch --version
+
+Options:
+    -m REAL, --umaxnorm=REAL  Llindar/umbral del màxim de l'autocorrelació [default: 0.6]
+    -n REAL, --unorm=REAL  Llindar/umbral de l'autocorrelació normalitzada [default: 1]
+    -p REAL, --upot=REAL  Llindar/umbral potència [default: 10]
+    -h, --help  Show this screen
+    --version   Show the version of the project
+
+Arguments:
+    input-wav   Wave file with the audio signal
+    output-txt  Output file: ASCII file with the result of the estimation:
+                    - One line per frame with the estimated f0
+                    - If considered unvoiced, f0 must be set to f0 = 0
+

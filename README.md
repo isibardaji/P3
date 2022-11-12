@@ -20,7 +20,7 @@ Ejercicios básicos
    * Inserte una gŕafica donde, en un *subplot*, se vea con claridad la señal temporal de un segmento de
      unos 30 ms de un fonema sonoro y su periodo de pitch; y, en otro *subplot*, se vea con claridad la
 	 autocorrelación de la señal y la posición del primer máximo secundario.
-
+  <img src="gràfica_bona_A.png" align="center"> 
 	 NOTA: es más que probable que tenga que usar Python, Octave/MATLAB u otro programa semejante para
 	 hacerlo. Se valorará la utilización de la biblioteca matplotlib de Python.
 
@@ -31,7 +31,7 @@ Ejercicios básicos
 
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
 
-    <img src="regla_decisio_sonor_sord.png" align="center">
+    <img src="decisió_sonord_sord.png" align="center">
 
    * Puede serle útil seguir las instrucciones contenidas en el documento adjunto `código.pdf`.
 
@@ -51,6 +51,19 @@ Ejercicios básicos
 	    Recuerde configurar los paneles de datos para que el desplazamiento de ventana sea el adecuado, que
 		en esta práctica es de 15 ms.
 
+      En les següents gàfiques observem un tram de veu sonor d'una senyal de veu (prueba.wav) i un tram sord. En amdos casos, hem seleccionat un tram de 15 ms. 
+
+      Gràfica tram sonor
+
+    <img src="tram_sonor_15ms.png" align="center">
+
+      
+      Gràfica tram sord
+
+    <img src="tram_sord_15ms.png" align="center">
+
+      En la gràfica de d'alt de tot tenim la gràfica de l'autocorrelació. Amb aquesta, podem determinar un umbral de umaxnorm d'aproximadamtn 0.6. En la segona gràfica observem l'autocorrelació normalitzada. Podem determinar un umbral per l'autocorrelació normalitzada al voltant de l'1. A la tercera gràfica hi ha la potència, que podriem deterinar un umbral al voltant dels -40.
+      
       - Use el estimador de pitch implementado en el programa `wavesurfer` en una señal de prueba y compare
 	    su resultado con el obtenido por la mejor versión de su propio sistema.  Inserte una gráfica
 		ilustrativa del resultado de ambos estimadores.

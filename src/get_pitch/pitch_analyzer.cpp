@@ -37,6 +37,11 @@ namespace upc {
     switch (win_type) {
     case HAMMING:
       /// \TODO Implement the Hamming window
+      /// \FET fnestra de hamming
+      /// - Apliquem la fòrmula de hamming
+      for(unsigned int i=0; i<frameLen; i++){
+        window[i] = 0.54 - 0.46*cos((2*M_PI*i)/(frameLen-1));
+      }
       break;
     case RECT:
     default:
@@ -58,11 +63,14 @@ namespace upc {
 
   bool PitchAnalyzer::unvoiced(float pot, float r1norm, float rmaxnorm) const {
     /// \TODO Implement a rule to decide whether the sound is voiced or not.
+    /// \FET Creem més umbrals per a la potència, la màxima autocorrelació i l'autocorrelació normalitzada
     /// * You can use the standard features (pot, r1norm, rmaxnorm),
     ///   or compute and use other ones.
-    if(rmaxnorm> umaxnorm) return false;
-  
+    
+    if((rmaxnorm> umaxnorm)|| ((r1norm>unorm) && (pot>upot))){ return false;
+    }else{
     return true;
+    }
   }
 
   float PitchAnalyzer::compute_pitch(vector<float> & x) const {
@@ -87,6 +95,7 @@ namespace upc {
 	///    - The lag corresponding to the maximum value of the pitch.
     ///	   .
 	/// In either case, the lag should not exceed that of the minimum value of the pitch.
+  /// \FET busquem el màxim entre el primer lòbul  el segon
     for(iRMax = iR = r.begin() + npitch_min; iR< r.begin()+ npitch_max; iR++){ //Com que el màxim ha d'estar entre en màx i el mín pitch fem el for que recorri aquest espai
       if(*iR>*iRMax){
         iRMax= iR;   //Si el iR és més gran que el màxim, actualitzem el valor d'aquest màxim
@@ -99,7 +108,7 @@ namespace upc {
     //You can print these (and other) features, look at them using wavesurfer
     //Based on that, implement a rule for unvoiced
     //change to #if 1 and compile
-#if 0
+#if 1
     if (r[0] > 0.0F)
       cout << pot << '\t' << r[1]/r[0] << '\t' << r[lag]/r[0] << endl;
 #endif
