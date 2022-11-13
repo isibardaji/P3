@@ -20,7 +20,7 @@ Ejercicios básicos
    * Inserte una gŕafica donde, en un *subplot*, se vea con claridad la señal temporal de un segmento de
      unos 30 ms de un fonema sonoro y su periodo de pitch; y, en otro *subplot*, se vea con claridad la
 	 autocorrelación de la señal y la posición del primer máximo secundario.
-  <img src="gràfica_bona_A.png" align="center"> 
+  <img src="autocorrelaqció_rl001_16000-16600.png" align="center"> 
 	 NOTA: es más que probable que tenga que usar Python, Octave/MATLAB u otro programa semejante para
 	 hacerlo. Se valorará la utilización de la biblioteca matplotlib de Python.
 
@@ -88,13 +88,35 @@ Ejercicios de ampliación
   * Inserte un *pantallazo* en el que se vea el mensaje de ayuda del programa y un ejemplo de utilización
     con los argumentos añadidos.
 
+  <img src="missatge_help_programa.png" align="center">
+
+  Hem afegit tres paràmetres, 'upot' és per referir-nos a l'umbral per la potència, 'umaxnorm' és l'umbral per a referir-nos al màxim de l'autocorrelació normalitzada i 'unorm' és l'umbral de l'autocorrelació normalitzada en 1. Aquests umbrals ens ajuden a l'hora de determinar si un senyal és sord o sonor i així obtenir resultats millors. El que ens facilita la detecció del pitch.
+  
+  Exemple utilització amb els arguments afegits:
+
+   <img src="exemple_utilització_umbrals.png" align="center">
+
 - Implemente las técnicas que considere oportunas para optimizar las prestaciones del sistema de estimación
   de pitch.
 
   Entre las posibles mejoras, puede escoger una o más de las siguientes:
 
   * Técnicas de preprocesado: filtrado paso bajo, diezmado, *center clipping*, etc.
+  
+  Center clipping
+
+  Amb aquesta tècnica fiquem a zero els trams de la senyal que es trobin entre els dos umbrals definits.
+
+   <img src="center_clipping.png" align="center">
+
   * Técnicas de postprocesado: filtro de mediana, *dynamic time warping*, etc.
+  
+  Filtre de mitjana
+
+  Creem un nou vector on guradarem els valors de f0 un cop la senyal hagi passat pel filtre. Amb aquest filtre agafem la mostra actual, l'anterior i la posterior i ens quedem amb el valor mig de les tres. Aquest valor el pasem al nou vector. Per tant, ens quedem amb els valors mitjos de les tres mostres (l'actual, l'anterior i la posterior).
+
+  <img src="filtre_mediana.png" align="center">
+  
   * Métodos alternativos a la autocorrelación: procesado cepstral, *average magnitude difference function*
     (AMDF), etc.
   * Optimización **demostrable** de los parámetros que gobiernan el estimador, en concreto, de los que

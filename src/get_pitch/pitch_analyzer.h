@@ -33,6 +33,9 @@ namespace upc {
       float umaxnorm;
       float unorm; //Umbral autoc normalitzada
       float upot; //Umbral potència
+      float uclip1;
+      float uclip2;
+
 	///
 	/// Computes correlation from lag=0 to r.size()
 	///
@@ -57,7 +60,9 @@ namespace upc {
 					float max_F0 = MAX_F0,		///< Pitch range should be restricted to be below this value
 				  float umaxnorm_ =0, //umbral per a autocorrelacio maxima normalitzada
           float unorm_=0, //umbral autoc normalitzada
-          float upot_= 0 //umbral pot
+          float upot_= 0, //umbral pot
+          float uclip1_=0,
+          float uclip2_=0
          )
 	{
       frameLen = fLen;
@@ -65,6 +70,8 @@ namespace upc {
       umaxnorm = umaxnorm_;
       unorm = unorm_;
       upot = upot_;
+      uclip1 = uclip1_;
+      uclip2 = uclip2_;
       set_f0_range(min_F0, max_F0);
       set_window(w);
     }

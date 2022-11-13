@@ -28,6 +28,8 @@ Options:
     -m REAL, --umaxnorm=REAL  Llindar/umbral del màxim de l'autocorrelació [default: 0.6]
     -n REAL, --unorm=REAL  Llindar/umbral de l'autocorrelació normalitzada [default: 1]
     -p REAL, --upot=REAL  Llindar/umbral potència [default: 10]
+    -1 REAL, --uclip1=REAL  Umbral center clipping 1 [default: 0.005]
+    -2 REAL, --uclip2=REAL  Umbral center clipping 2 [default: -0.005]
     -h, --help  Show this screen
     --version   Show the version of the project
 
@@ -50,8 +52,10 @@ int main(int argc, const char *argv[]) {
 	std::string input_wav = args["<input-wav>"].asString();
 	std::string output_txt = args["<output-txt>"].asString();
   float umaxnorm = stof(args["--umaxnorm"].asString());
- float upot = stof(args["--upot"].asString());
-float unorm = stof(args["--unorm"].asString());
+  float upot = stof(args["--upot"].asString());
+  float unorm = stof(args["--unorm"].asString());
+  float uclip1 = stof(args["--uclip1"].asString());
+  float uclip2 = stof(args["--uclip2"].asString());
   // Read input sound file
   unsigned int rate;
   vector<float> x;
@@ -73,6 +77,15 @@ float unorm = stof(args["--unorm"].asString());
   // Iterate for each frame and save values in f0 vector
   vector<float>::iterator iX;
   vector<float> f0;
+  vector<float> nou;
+  float max = *std::max_element(x.begin(), x.end());
+  for(int i=0; i< int(x.size()); i++){
+    nou[i]=x[i];
+    if(nou[i]<uclip1*max && nou[i]>uclip2*max){
+      nou[i]=0;
+    }
+   
+  } 
 
   for (iX = x.begin(); iX + n_len < x.end(); iX = iX + n_shift) {
     
@@ -83,7 +96,18 @@ float unorm = stof(args["--unorm"].asString());
   /// \TODO
   /// Postprocess the estimation in order to supress errors. For instance, a median filter
   /// or time-warping may be used.
+  vector<float> valors_f0_filtrada(f0.size());
+  for(int i= 0; i< int(f0.size()); i++){
+    if((f0[i-1]>f0[i]&&f0[i-1]<f0[i+1]) || (f0[i-1]<f0[i]&&f0[i-1]>f0[i+1])){
+       valors_f0_filtrada[i] = f0[i-1];
+    }else if((f0[i-1]<f0[i]&&f0[i]<f0[i+1]) || (f0[i-1]>f0[i]&&f0[i]>f0[i+1])){
+       valors_f0_filtrada[i] = f0[i];
+    }else if((f0[i-1]<f0[i+1]&&f0[i]>f0[i+1]) || (f0[i-1]>f0[i+1]&&f0[i]<f0[i+1])){
+      valors_f0_filtrada[i] = f0[i+1];
+    }
+   
 
+  }
   // Write f0 contour into the output file
   ofstream os(output_txt);
   if (!os.good()) {
