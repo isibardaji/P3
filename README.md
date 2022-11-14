@@ -98,6 +98,7 @@ Ejercicios de ampliación
   * Inserte un *pantallazo* en el que se vea el mensaje de ayuda del programa y un ejemplo de utilización
     con los argumentos añadidos.
 
+<<<<<<< HEAD
   <img src="missatge_help_programa.png" align="center">
 
   Hem afegit tres paràmetres, 'upot' és per referir-nos a l'umbral per la potència, 'umaxnorm' és l'umbral per a referir-nos al màxim de l'autocorrelació normalitzada i 'unorm' és l'umbral de l'autocorrelació normalitzada en 1. Aquests umbrals ens ajuden a l'hora de determinar si un senyal és sord o sonor i així obtenir resultats millors. El que ens facilita la detecció del pitch.
@@ -105,6 +106,10 @@ Ejercicios de ampliación
   Exemple utilització amb els arguments afegits:
 
    <img src="exemple_utilització_umbrals.png" align="center">
+=======
+
+    <image src=https://github.com/isibardaji/P3/blob/bardaji-cot/ampliable1.png>
+>>>>>>> 7b76ba6b8d1614b23546f518bde150f8d2cc6ab3
 
 - Implemente las técnicas que considere oportunas para optimizar las prestaciones del sistema de estimación
   de pitch.
