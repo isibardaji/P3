@@ -25,11 +25,11 @@ Usage:
     get_pitch --version
 
 Options:
-    -m REAL, --umaxnorm=REAL  Llindar/umbral del màxim de l'autocorrelació [default: 0.6]
+    -m REAL, --umaxnorm=REAL  Llindar/umbral del màxim de l'autocorrelació [default: 0.4]
     -n REAL, --unorm=REAL  Llindar/umbral de l'autocorrelació normalitzada [default: 1]
-    -p REAL, --upot=REAL  Llindar/umbral potència [default: 10]
-    -1 REAL, --uclip1=REAL  Umbral center clipping 1 [default: 0.005]
-    -2 REAL, --uclip2=REAL  Umbral center clipping 2 [default: -0.005]
+    -p REAL, --upot=REAL  Llindar/umbral potència [default: -60]
+    -1 REAL, --uclip1=REAL  Umbral center clipping 1 [default: 0.006]
+    -2 REAL, --uclip2=REAL  Umbral center clipping 2 [default: -0.006]
     -h, --help  Show this screen
     --version   Show the version of the project
 
@@ -77,12 +77,14 @@ int main(int argc, const char *argv[]) {
   // Iterate for each frame and save values in f0 vector
   vector<float>::iterator iX;
   vector<float> f0;
-  vector<float> nou;
+ // vector<float> nou;
+ 
   float max = *std::max_element(x.begin(), x.end());
+  //nou=x;
   for(int i=0; i< int(x.size()); i++){
-    nou[i]=x[i];
-    if(nou[i]<uclip1*max && nou[i]>uclip2*max){
-      nou[i]=0;
+   // nou[i]=x[i];
+    if(x[i]<uclip1*max && x[i]>uclip2*max){
+      x[i]=0;
     }
    
   } 
@@ -96,6 +98,7 @@ int main(int argc, const char *argv[]) {
   /// \TODO
   /// Postprocess the estimation in order to supress errors. For instance, a median filter
   /// or time-warping may be used.
+  
   vector<float> valors_f0_filtrada(f0.size());
   for(int i= 0; i< int(f0.size()); i++){
     if((f0[i-1]>f0[i]&&f0[i-1]<f0[i+1]) || (f0[i-1]<f0[i]&&f0[i-1]>f0[i+1])){

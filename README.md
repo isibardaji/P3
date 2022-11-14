@@ -68,6 +68,16 @@ Ejercicios básicos
 	    su resultado con el obtenido por la mejor versión de su propio sistema.  Inserte una gráfica
 		ilustrativa del resultado de ambos estimadores.
      
+     A continuació observem el pitch de la senyal obtingut amb la nostra versió del sistema.
+
+     <img src="comparació_pitch_rl002f0.png" align="center">
+
+     A continuació observem el pitch de la senyal obtingut per la pròpia senyal
+
+    <img src="comparacio_pitch_rl002f0ref.png" align="center">
+
+    Pel que fa al contorn de pitch realitzat pel wavesurfer, en els dos casos és bastant similar.
+
 		Aunque puede usar el propio Wavesurfer para obtener la representación, se valorará
 	 	el uso de alternativas de mayor calidad (particularmente Python).
   
@@ -116,7 +126,7 @@ Ejercicios de ampliación
   Creem un nou vector on guradarem els valors de f0 un cop la senyal hagi passat pel filtre. Amb aquest filtre agafem la mostra actual, l'anterior i la posterior i ens quedem amb el valor mig de les tres. Aquest valor el pasem al nou vector. Per tant, ens quedem amb els valors mitjos de les tres mostres (l'actual, l'anterior i la posterior).
 
   <img src="filtre_mediana.png" align="center">
-  
+
   * Métodos alternativos a la autocorrelación: procesado cepstral, *average magnitude difference function*
     (AMDF), etc.
   * Optimización **demostrable** de los parámetros que gobiernan el estimador, en concreto, de los que
