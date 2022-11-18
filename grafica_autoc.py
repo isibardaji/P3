@@ -14,7 +14,7 @@ import numpy as np
 #llegim el fitxer de veu de prueba.wav
 prueba, fs = sf.read("Nova-gravació-6.wav")
 #diem el temps
-prueba=prueba[16000:16090]
+prueba=prueba[40000:40480]
 time_sf = (np.linspace(start=0, stop = (len(prueba)-1), num = len(prueba)))/fs
 #calculem l'autocorrelació amb la funció que ens don la llibreria numpy
 autocorrelacio = np.correlate(prueba, prueba, "full")

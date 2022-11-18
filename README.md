@@ -20,7 +20,7 @@ Ejercicios básicos
    * Inserte una gŕafica donde, en un *subplot*, se vea con claridad la señal temporal de un segmento de
      unos 30 ms de un fonema sonoro y su periodo de pitch; y, en otro *subplot*, se vea con claridad la
 	 autocorrelación de la señal y la posición del primer máximo secundario.
-  <img src="autocorrelaqció_rl001_16000-16600.png" align="center"> 
+  <img src="gràfica_py.png" align="center"> 
 	 NOTA: es más que probable que tenga que usar Python, Octave/MATLAB u otro programa semejante para
 	 hacerlo. Se valorará la utilización de la biblioteca matplotlib de Python.
 
@@ -31,7 +31,7 @@ Ejercicios básicos
 
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
 
-    <img src="decisió_sonord_sord.png" align="center">
+    <img src="unnvoiced.png" align="center">
 
    * Puede serle útil seguir las instrucciones contenidas en el documento adjunto `código.pdf`.
 
@@ -78,12 +78,19 @@ Ejercicios básicos
 
     Pel que fa al contorn de pitch realitzat pel wavesurfer, en els dos casos és bastant similar.
 
+
+    A continuació mostrem la comparació del pitch amb el pitch de referència amb unes gràfiques on es poden observar millor els detalls:
+
+  <img src="pitch_pitchref_python.png" align="center>
+
 		Aunque puede usar el propio Wavesurfer para obtener la representación, se valorará
 	 	el uso de alternativas de mayor calidad (particularmente Python).
   
   * Optimice los parámetros de su sistema de estimación de pitch e inserte una tabla con las tasas de error
     y el *score* TOTAL proporcionados por `pitch_evaluate` en la evaluación de la base de datos 
 	`pitch_db/train`..
+
+  <img src="%_sense_ampliables.png" align="center">
 
 Ejercicios de ampliación
 ------------------------
@@ -120,7 +127,7 @@ Ejercicios de ampliación
   
   Center clipping
 
-  Amb aquesta tècnica fiquem a zero els trams de la senyal que es trobin entre els dos umbrals definits.
+  Amb aquesta tècnica fiquem a zero els trams de la senyal que es trobin entre dos umbrals definits. Amb aquest mètode el que aconseguim és eliminar, ficar a zero els instants de temps en que la senyal té una amplitud menor. Am això aconseguim robustesa devant del soroll. A més, s'intenta eliminar els trams on no hi hagi periodicitat, i quedar-se només amb aquesta, el que fa destacar més els formants en el domini freqüencial. També mencionar que hem triat aquest mètode ja que al anul·lar aquests valors, introduim una distorció lineal, el que fa augmentar la intensitat dels harmònics d'ordre elevat, cosa que ens interesa pel mencionat anteriorment.
 
    <img src="center_clipping.png" align="center">
 
@@ -128,9 +135,11 @@ Ejercicios de ampliación
   
   Filtre de mitjana
 
-  Creem un nou vector on guradarem els valors de f0 un cop la senyal hagi passat pel filtre. Amb aquest filtre agafem la mostra actual, l'anterior i la posterior i ens quedem amb el valor mig de les tres. Aquest valor el pasem al nou vector. Per tant, ens quedem amb els valors mitjos de les tres mostres (l'actual, l'anterior i la posterior).
+  Aquest mètode utilitza una finestra que es va movent al llarg de la senyal. Per implementar-lo, creem un nou vector on guradarem els valors de f0 un cop la senyal hagi passat pel filtre. Amb aquest la finestra, agafem la mostra actual, l'anterior i la posterior i ens quedem amb el valor mig de les tres. Aquest valor el pasem al nou vector. Per tant, ens quedem amb els valors mitjos de les tres mostres (l'actual, l'anterior i la posterior). Hem comprovat que la millor longitud per la finestra és de 3, ja que així es queda només amb una mostra anterior i una posterior, ja que si augmentavem el valor de l obteniem pitjors resultats. El filtre implementat és no recursiu, ja que no altera els valors originals, sinó que els guarda a una altre variable. La ventatje d'utilitzar aquest filtre és que el valor final de f0 és un valor real de la senyal i no un promig.
 
-  <img src="filtre_mediana.png" align="center">
+  <img src="filtre_de_mitjana.png" align="center">
+
+  
 
   * Métodos alternativos a la autocorrelación: procesado cepstral, *average magnitude difference function*
     (AMDF), etc.
@@ -144,6 +153,8 @@ Ejercicios de ampliación
 
   Incluya, a continuación, una explicación de las técnicas incorporadas al estimador. Se valorará la
   inclusión de gráficas, tablas, código o cualquier otra cosa que ayude a comprender el trabajo realizado.
+
+  <img src="%_amb_ampliables.png" align="center">
 
   También se valorará la realización de un estudio de los parámetros involucrados. Por ejemplo, si se opta
   por implementar el filtro de mediana, se valorará el análisis de los resultados obtenidos en función de
