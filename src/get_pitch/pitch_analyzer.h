@@ -9,6 +9,10 @@
 namespace upc {
   const float MIN_F0 = 20.0F;    ///< Minimum value of pitch in Hertzs
   const float MAX_F0 = 10000.0F; ///< Maximum value of pitch in Hertzs
+  const float THR1NORM = 0.9;
+  const float THRMAXNORM = 0.275; 
+  const float THPOWER = -55.5;
+  const float THZCR = 1825;
 
   ///
   /// PitchAnalyzer: class that computes the pitch (in Hz) from a signal frame.
@@ -30,27 +34,34 @@ namespace upc {
       samplingFreq, ///< sampling rate (in samples per second). Has to be set in the constructor call
       npitch_min, ///< minimum value of pitch period, in samples
       npitch_max; ///< maximum value of pitch period, in samples
-      float umaxnorm;
-      float unorm; //Umbral autoc normalitzada
-      float upot; //Umbral potència
-      float uclip1;
-      float uclip2;
-      float cc;
-
+    float umbral1;
+    float umbral2;
+    float umbral3;
+    float umbral4;
+ 
 	///
 	/// Computes correlation from lag=0 to r.size()
 	///
+
     void autocorrelation(const std::vector<float> &x, std::vector<float> &r) const;
 
 	///
 	/// Returns the pitch (in Hz) of input frame x
 	///
-    float compute_pitch(std::vector<float> & x) const;
+
+    float compute_pitch(std::vector<float> & x, float maxPot) const;
 	
+  ///
+  /// Returns the zcr of input frame x
+  ///
+
+    float compute_zcr(std::vector<float> & x, unsigned int N, unsigned int fm) const;
+
 	///
 	/// Returns true is the frame is unvoiced
 	///
-    bool unvoiced(float pot, float r1norm, float rmaxnorm) const;
+
+    bool unvoiced(float pot, float r1norm, float rmaxnorm, float zcr) const;
 
 
   public:
@@ -58,62 +69,58 @@ namespace upc {
 					unsigned int sFreq,			///< Sampling rate in Hertzs
 					Window w=PitchAnalyzer::HAMMING,	///< Window type
 					float min_F0 = MIN_F0,		///< Pitch range should be restricted to be above this value
-					float max_F0 = MAX_F0,		///< Pitch range should be restricted to be below this value
-				  float umaxnorm_ =0, //umbral per a autocorrelacio maxima normalitzada
-          float unorm_=0, //umbral autoc normalitzada
-          float upot_= 0, //umbral pot
-          float uclip1_=0,
-          float uclip2_=0, 
-          float cc_=0
-         )
+					float max_F0 = MAX_F0,  	///< Pitch range should be restricted to be below this value
+          float unorm_ = THR1NORM,
+          float umaxnorm_ = THRMAXNORM, 
+          float upot_ = THPOWER,
+          float uzcr_ = THZCR
+				 )
 	{
       frameLen = fLen;
       samplingFreq = sFreq;
-      umaxnorm = umaxnorm_;
-      unorm = unorm_;
-      upot = upot_;
-      uclip1 = uclip1_;
-      uclip2 = uclip2_;
-      cc = cc_;
       set_f0_range(min_F0, max_F0);
       set_window(w);
+      umbral1 = unorm_;
+      umbral2 = umaxnorm_;
+      umbral3 = upot_;
+      umbral4 = uzcr_;
     }
 
 	///
     /// Operator (): computes the pitch for the given vector x
 	///
-    float operator()(const std::vector<float> & _x) const {
+    float operator()(const std::vector<float> & _x, float maxPot) const {
       if (_x.size() != frameLen)
         return -1.0F;
 
       std::vector<float> x(_x); //local copy of input frame
-      return compute_pitch(x);
+      return compute_pitch(x,maxPot);
     }
 
 	///
     /// Operator (): computes the pitch for the given "C" vector (float *).
     /// N is the size of the vector pointer by pt.
 	///
-    float operator()(const float * pt, unsigned int N) const {
+    float operator()(const float * pt, unsigned int N, float maxPot) const {
       if (N != frameLen)
         return -1.0F;
 
       std::vector<float> x(N); //local copy of input frame, size N
       std::copy(pt, pt+N, x.begin()); ///copy input values into local vector x
-      return compute_pitch(x);
+      return compute_pitch(x,maxPot);
     }
 
 	///
     /// Operator (): computes the pitch for the given vector, expressed by the begin and end iterators
 	///
-    float operator()(std::vector<float>::const_iterator begin, std::vector<float>::const_iterator end) const {
+    float operator()(std::vector<float>::const_iterator begin, std::vector<float>::const_iterator end, float maxPot) const {
 
       if (end-begin != frameLen)
         return -1.0F;
 
       std::vector<float> x(end-begin); //local copy of input frame, size N
       std::copy(begin, end, x.begin()); //copy input values into local vector x
-      return compute_pitch(x);
+      return compute_pitch(x,maxPot);
     }
     
 	///

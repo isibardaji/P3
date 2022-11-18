@@ -17,11 +17,17 @@ namespace upc {
       /// - Afegim el producte
       /// - Dividim per la durada
       /// *** TAXANNNN ***
+
+      // for(unsigned int n=l; n< x.size(); n++){
+      //   r[l] += x[n]*x[n-l];
+      // }
+      // r[l] = r[l]/x.size();
+
       r[l]=0;
-      for(unsigned int n=l; n< x.size(); n++){
-        r[l] += x[n]*x[n-l];
+      for (unsigned int n = 0; n < x.size()-l; n++){
+        r[l] += x[n+l]*x[n];
       }
-      r[l] = r[l]/x.size();
+      r[l]=r[l]/x.size();
     }
 
     if (r[0] == 0.0F) //to avoid log() and divide zero 
@@ -35,15 +41,21 @@ namespace upc {
     window.resize(frameLen);
 
     switch (win_type) {
-    case HAMMING:
+      //Nose pq dona error si no poso els {}
+    case HAMMING:{
       /// \TODO Implement the Hamming window
       /// \FET fnestra de hamming
       /// - Apliquem la fòrmula de hamming
-      for(unsigned int i=0; i<frameLen; i++){
-        window[i] = 0.54 - 0.46*cos((2*M_PI*i)/(frameLen-1));
+
+      for(unsigned int i = 0; i < frameLen; i++){
+        window[i]=0.53836-(1-0.53836)*cos((2*M_PI*i)/frameLen);
       }
       break;
-    case RECT:
+    }
+    case RECT:{
+      window.assign(frameLen, 1);
+      break;
+    }
     default:
       window.assign(frameLen, 1);
     }
@@ -61,48 +73,67 @@ namespace upc {
       npitch_max = frameLen/2;
   }
 
-  bool PitchAnalyzer::unvoiced(float pot, float r1norm, float rmaxnorm) const {
+  bool PitchAnalyzer::unvoiced(float pot, float r1norm, float rmaxnorm, float zcr) const {
     /// \TODO Implement a rule to decide whether the sound is voiced or not.
     /// \FET Creem més umbrals per a la potència, la màxima autocorrelació i l'autocorrelació normalitzada
     /// * You can use the standard features (pot, r1norm, rmaxnorm),
     ///   or compute and use other ones.
-   /*/ 
-   if(rmaxnorm> umaxnorm){
-      if(r1norm>unorm){
-        if(pot>upot){
-           return false;
-        } return false;
-      }return false;
-      }
-    return true;
-    
-  }
 
-  */
-  if(((rmaxnorm > umaxnorm) || (r1norm>unorm)) && (pot>upot)){ return false;
-    }else{
+    // if(rmaxnorm> umaxnorm){
+    //   if(r1norm>unorm){
+    //     if(pot>upot){
+    //        return false;
+    //     }
+    //   }}
+    // return true;
+
+  if( rmaxnorm < umbral2 || r1norm < 0.260 || (zcr > umbral4)){
     return true;
+  }
+ if(pot > umbral3){ 
+      if((rmaxnorm < 0.558 && r1norm > 0.99)){
+        return true;
+      }
+      else if (rmaxnorm < 0.378 && r1norm > umbral1){
+        return true;
+      }
+      else if((rmaxnorm > 0.386 || r1norm > 0.925)){
+        return false;
+      }
+      else{
+        return true;
+      }
+   }else{
+      if(rmaxnorm > 0.5){
+        return false;
+      }else{
+        return true;
+      }
     }
   }
 
+  float PitchAnalyzer::compute_zcr(vector<float> & x, unsigned int N, unsigned int fm) const {
+	  unsigned int i = 0;
+	  float zcr = 0;
+	  for(i=1; i<N; i++){
 
-  float PitchAnalyzer::compute_pitch(vector<float> & x) const {
-    if (x.size() != frameLen)
+		  if((x[i]*x[i-1]) < 0){
+			  zcr = zcr + 1;
+		  }
+
+	  }
+	  zcr = ((float)1 / (N-1)) * zcr;
+
+	  zcr = fm / ((float)2) * zcr;
+	  return zcr;
+  }
+
+  float PitchAnalyzer::compute_pitch(vector<float> & x,float maxPot) const {
+    if (x.size() != frameLen){
       return -1.0F;
-
-  //Center clipping
-    
-    float max = *std::max_element(x.begin(), x.end());
-
-    for(int i = 0; i < (int)x.size(); i++) {
-      if(abs(x[i]) < cc*max) {
-        x[i] = 0.0F;
-      }
     }
-
-
     //Window input frame
-    for (unsigned int i=0; i<x.size(); ++i)
+    for (unsigned int i=0; i < x.size(); ++i)
       x[i] *= window[i];
 
     vector<float> r(npitch_max);
@@ -110,7 +141,7 @@ namespace upc {
     //Compute correlation
     autocorrelation(x, r);
 
-    vector<float>::const_iterator iR = r.begin(), iRMax = iR;
+    vector<float>::const_iterator iR = r.begin(), iRMax = r.begin() + npitch_min;
 
     /// \TODO 
 	/// Find the lag of the maximum value of the autocorrelation away from the origin.<br>
@@ -125,21 +156,27 @@ namespace upc {
         iRMax= iR;   //Si el iR és més gran que el màxim, actualitzem el valor d'aquest màxim
       }
     }
+
     unsigned int lag = iRMax - r.begin();
 
-    float pot = 10 * log10(r[0]);
+    float pot = 10 * log10(r[0]); 
+    pot = pot-maxPot;
+    float zcr  =compute_zcr(x, frameLen, samplingFreq) ;
 
     //You can print these (and other) features, look at them using wavesurfer
     //Based on that, implement a rule for unvoiced
     //change to #if 1 and compile
 #if 1
-    if (r[0] > 0.0F)
-      cout << pot << '\t' << r[1]/r[0] << '\t' << r[lag]/r[0] << endl;
+    if (r[0] > 0.0F){
+      //cout << pot << '\t' << r[1]/r[0] << '\t' << r[lag]/r[0] << endl;
+      cout << '\t' << pot << endl;
+    }
 #endif
     
-    if (unvoiced(pot, r[1]/r[0], r[lag]/r[0]))
-      return 0;
-    else
-      return (float) samplingFreq/(float) lag;
+      if (unvoiced(pot, r[1]/r[0], r[lag]/r[0], zcr))
+        return 0;
+      else{
+        return (float) samplingFreq/(float) lag;
+      }
   }
 }
