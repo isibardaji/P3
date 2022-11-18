@@ -39,7 +39,7 @@ Arguments:
                     - One line per frame with the estimated f0
                     - If considered unvoiced, f0 must be set to f0 = 0
 )";
-
+//upot -38 uclip1 0.01 uclip2 -0.01 umaxnorm 1 unoorm 0.9
 int main(int argc, const char *argv[]) {
 	/// \TODO 
 	///  Modify the program syntax and the call to **docopt()** in order to
@@ -51,9 +51,9 @@ int main(int argc, const char *argv[]) {
 
 	std::string input_wav = args["<input-wav>"].asString();
 	std::string output_txt = args["<output-txt>"].asString();
-  float umaxnorm = stof(args["--umaxnorm"].asString());
-  float upot = stof(args["--upot"].asString());
+  float umaxnorm = stof(args["--umaxnorm"].asString());  
   float unorm = stof(args["--unorm"].asString());
+  float upot = stof(args["--upot"].asString());
   float uclip1 = stof(args["--uclip1"].asString());
   float uclip2 = stof(args["--uclip2"].asString());
   // Read input sound file
@@ -68,7 +68,7 @@ int main(int argc, const char *argv[]) {
   int n_shift = rate * FRAME_SHIFT;
 
   // Define analyzer
-  PitchAnalyzer analyzer(n_len, rate, PitchAnalyzer::RECT, 50, 500, umaxnorm);
+  PitchAnalyzer analyzer(n_len, rate, PitchAnalyzer::RECT, 50, 500, umaxnorm, unorm, upot);
 
   /// \TODO
   /// Preprocess the input signal in order to ease pitch estimation. For instance,
@@ -79,6 +79,7 @@ int main(int argc, const char *argv[]) {
   vector<float> f0;
  // vector<float> nou;
  
+
   float max = *std::max_element(x.begin(), x.end());
   //nou=x;
   for(int i=0; i< int(x.size()); i++){
@@ -119,7 +120,7 @@ int main(int argc, const char *argv[]) {
   }
 
   os << 0 << '\n'; //pitch at t=0
-  for (iX = f0.begin(); iX != f0.end(); ++iX) 
+  for (iX = valors_f0_filtrada.begin(); iX != valors_f0_filtrada.end(); ++iX) 
     os << *iX << '\n';
   os << 0 << '\n';//pitch at t=Dur
 

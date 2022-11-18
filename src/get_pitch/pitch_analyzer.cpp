@@ -67,10 +67,14 @@ namespace upc {
     /// * You can use the standard features (pot, r1norm, rmaxnorm),
     ///   or compute and use other ones.
     
-    if((rmaxnorm> umaxnorm)|| ((r1norm>unorm) && (pot>upot))){ return false;
-    }else{
+    if(rmaxnorm> umaxnorm){
+      if(r1norm>unorm){
+        if(pot>upot){
+           return false;
+        }
+      }}
     return true;
-    }
+    
   }
 
   float PitchAnalyzer::compute_pitch(vector<float> & x) const {
