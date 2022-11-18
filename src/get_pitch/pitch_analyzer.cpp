@@ -66,24 +66,25 @@ namespace upc {
     /// \FET Creem més umbrals per a la potència, la màxima autocorrelació i l'autocorrelació normalitzada
     /// * You can use the standard features (pot, r1norm, rmaxnorm),
     ///   or compute and use other ones.
-    
+   /*/ 
    if(rmaxnorm> umaxnorm){
       if(r1norm>unorm){
         if(pot>upot){
            return false;
-        }
-      }}
+        } return false;
+      }return false;
+      }
     return true;
     
   }
 
-  /*
-  if((rmaxnorm > umaxnorm) && (r1norm>unorm) && (pot>upot)){ return false;
+  */
+  if(((rmaxnorm > umaxnorm) || (r1norm>unorm)) && (pot>upot)){ return false;
     }else{
     return true;
     }
   }
-*/
+
 
   float PitchAnalyzer::compute_pitch(vector<float> & x) const {
     if (x.size() != frameLen)
