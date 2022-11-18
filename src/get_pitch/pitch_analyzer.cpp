@@ -67,7 +67,7 @@ namespace upc {
     /// * You can use the standard features (pot, r1norm, rmaxnorm),
     ///   or compute and use other ones.
     
-    if(rmaxnorm> umaxnorm){
+   if(rmaxnorm> umaxnorm){
       if(r1norm>unorm){
         if(pot>upot){
            return false;
@@ -77,9 +77,28 @@ namespace upc {
     
   }
 
+  /*
+  if((rmaxnorm > umaxnorm) && (r1norm>unorm) && (pot>upot)){ return false;
+    }else{
+    return true;
+    }
+  }
+*/
+
   float PitchAnalyzer::compute_pitch(vector<float> & x) const {
     if (x.size() != frameLen)
       return -1.0F;
+
+  //Center clipping
+    
+    float max = *std::max_element(x.begin(), x.end());
+
+    for(int i = 0; i < (int)x.size(); i++) {
+      if(abs(x[i]) < cc*max) {
+        x[i] = 0.0F;
+      }
+    }
+
 
     //Window input frame
     for (unsigned int i=0; i<x.size(); ++i)

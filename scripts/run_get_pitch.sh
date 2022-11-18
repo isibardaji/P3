@@ -1,10 +1,10 @@
 #!/bin/bash
 
-umaxnorm=${1:+-m${1}}
-unorm=${2:+-n${2}}
-upot=${3:+-p${3}}
-uclip1=${4:+--uclip1${4}}
-uclip2=${5:+--uclip2${5}}
+#umaxnorm=${1:+-m${1}}
+#unorm=${2:+-n${2}}
+#upot=${3:+-p${3}}
+#uclip1=${4:+--uclip1${4}}
+#uclip2=${5:+--uclip2${5}}
 # Put here the program (maybe with path)
 GETF0="get_pitch $umaxnorm $unorm $upot $clip1 $clip2"
 

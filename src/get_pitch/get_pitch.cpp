@@ -25,11 +25,11 @@ Usage:
     get_pitch --version
 
 Options:
-    -m REAL, --umaxnorm=REAL  Llindar/umbral del màxim de l'autocorrelació [default: 0.4]
-    -n REAL, --unorm=REAL  Llindar/umbral de l'autocorrelació normalitzada [default: 1]
-    -p REAL, --upot=REAL  Llindar/umbral potència [default: -60]
-    -1 REAL, --uclip1=REAL  Umbral center clipping 1 [default: 0.006]
-    -2 REAL, --uclip2=REAL  Umbral center clipping 2 [default: -0.006]
+    -m REAL, --umaxnorm=REAL  Llindar/umbral del màxim de l'autocorrelació [default: 0.85]
+    -n REAL, --unorm=REAL  Llindar/umbral de l'autocorrelació normalitzada [default: 0.75]
+    -p REAL, --upot=REAL  Llindar/umbral potència [default: -40]
+    -1 REAL, --uclip1=REAL  Umbral center clipping 1 [default: 0.01]
+    -2 REAL, --uclip2=REAL  Umbral center clipping 2 [default: -0.01]
     -h, --help  Show this screen
     --version   Show the version of the project
 

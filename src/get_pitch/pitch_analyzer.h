@@ -35,6 +35,7 @@ namespace upc {
       float upot; //Umbral potència
       float uclip1;
       float uclip2;
+      float cc;
 
 	///
 	/// Computes correlation from lag=0 to r.size()
@@ -62,7 +63,8 @@ namespace upc {
           float unorm_=0, //umbral autoc normalitzada
           float upot_= 0, //umbral pot
           float uclip1_=0,
-          float uclip2_=0
+          float uclip2_=0, 
+          float cc_=0
          )
 	{
       frameLen = fLen;
@@ -72,6 +74,7 @@ namespace upc {
       upot = upot_;
       uclip1 = uclip1_;
       uclip2 = uclip2_;
+      cc = cc_;
       set_f0_range(min_F0, max_F0);
       set_window(w);
     }
