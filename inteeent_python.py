@@ -3,20 +3,25 @@ import soundfile as sf
 import numpy as np
 
 
-fitxer, fs = sf.read("rl002.wav")
-inici = int(0.340*fs)
-final = inici + int(0.03*fs)
+fitxer, fs = sf.read("prueba.wav")
+inici = 0
+final = len(fitxer)
 duracio = final-inici
 fitxer_s = fitxer[inici:final]
-	
+x = []
+x=fitxer_s
 r = np.zeros(duracio)
 	
 for k in range(duracio):
-    for n in range(len(fitxer_s)-k):
-        r[k]=r[k]+(fitxer_s[n]*fitxer_s[k+n])
-        r[k]=r[k]/len(fitxer_s)
+    
+    if(k>0.0055):
+        x[k]=fitxer_s[k]
+    if(k< -1*0.005):
+        x[k]=fitxer_s[k]
+    if((k<0.0055)&(k>-1*0.0055)):
+        x[k]=0
 
-	
+
 
 plt.subplot(2,1,1)
 plt.title("Senyal temporal")
@@ -24,12 +29,12 @@ plt.xlabel("Temps (s)")
 plt.ylabel("Amplitud")
 plt.plot(fitxer_s)
 
-#fem la gràfica de l'autocorrelació
+
 plt.subplot(2,1,2)
-plt.title("Autocorrelació de la senyal de veu")
-plt.xlabel("Mostres")
-plt.ylabel("Autocorrelació")
-plt.plot(r)
+plt.title("Senyal amb clipping")
+plt.xlabel("(s)")
+plt.ylabel("Amplitud")
+plt.plot(x)
 plt.show()
 	
 
