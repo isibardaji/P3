@@ -90,7 +90,7 @@ Ejercicios básicos
     y el *score* TOTAL proporcionados por `pitch_evaluate` en la evaluación de la base de datos 
 	`pitch_db/train`..
 
-  <img src="%_sense_ampliables.png" align="center">
+  <img src="tantxcent_sense_ampliables" align="center">
 
 Ejercicios de ampliación
 ------------------------
@@ -150,7 +150,7 @@ Ejercicios de ampliación
   Incluya, a continuación, una explicación de las técnicas incorporadas al estimador. Se valorará la
   inclusión de gráficas, tablas, código o cualquier otra cosa que ayude a comprender el trabajo realizado.
 
-  <img src="%_amb_ampliables.png" align="center">
+  <img src="tanxcent_amb_ampliables.png" align="center">
 
   También se valorará la realización de un estudio de los parámetros involucrados. Por ejemplo, si se opta
   por implementar el filtro de mediana, se valorará el análisis de los resultados obtenidos en función de
