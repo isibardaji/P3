@@ -16,22 +16,25 @@ Ejercicios básicos
    * Complete el cálculo de la autocorrelación e inserte a continuación el código correspondiente.
 
    <img src=https://github.com/isibardaji/P3/blob/bardaji-cot/img/codi_autocorrelacio.png>
+   
 
    * Inserte una gŕafica donde, en un *subplot*, se vea con claridad la señal temporal de un segmento de
      unos 30 ms de un fonema sonoro y su periodo de pitch; y, en otro *subplot*, se vea con claridad la
 	 autocorrelación de la señal y la posición del primer máximo secundario.
+	 
   <img src=https://github.com/isibardaji/P3/blob/bardaji-cot/img/gr%C3%A0fica_py.png> 
+  
 	 NOTA: es más que probable que tenga que usar Python, Octave/MATLAB u otro programa semejante para
 	 hacerlo. Se valorará la utilización de la biblioteca matplotlib de Python.
 
    * Determine el mejor candidato para el periodo de pitch localizando el primer máximo secundario de la
      autocorrelación. Inserte a continuación el código correspondiente.
 
-    <img src="/PAV/P3/img/Codi_localitzacio_primer_max_secundari_autocorrelacio.png" align="center"> 
+    <img src=https://github.com/isibardaji/P3/blob/bardaji-cot/img/Codi_localitzacio_primer_max_secundari_autocorrelacio.png> 
 
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
 
-    <img src="/PAV/P3/img/unnvoiced.png" align="center">
+    <img src=https://github.com/isibardaji/P3/blob/bardaji-cot/img/unnvoiced.png>
 
    * Puede serle útil seguir las instrucciones contenidas en el documento adjunto `código.pdf`.
 
@@ -55,12 +58,12 @@ Ejercicios básicos
 
       Gràfica tram sonor
 
-    <img src="/PAV/P3/img/tram_sonor_15ms.png" align="center">
+    <img src=https://github.com/isibardaji/P3/blob/bardaji-cot/img/tram_sonor_15ms.png>
 
       
       Gràfica tram sord
 
-    <img src="/PAV/P3/img/tram_sord_15ms.png" align="center">
+    <img src=https://github.com/isibardaji/P3/blob/bardaji-cot/img/tram_sord_15ms.png>
 
       En la gràfica de d'alt de tot tenim la gràfica de l'autocorrelació. Amb aquesta, podem determinar un umbral de umaxnorm d'aproximadamtn 0.6. En la segona gràfica observem l'autocorrelació normalitzada. Podem determinar un umbral per l'autocorrelació normalitzada al voltant de l'1. A la tercera gràfica hi ha la potència, que podriem deterinar un umbral al voltant dels -40.
       
@@ -70,18 +73,18 @@ Ejercicios básicos
      
      A continuació observem el pitch de la senyal obtingut amb la nostra versió del sistema.
 
-     <img src="/PAV/P3/img/comparació_pitch_rl002f0.png" align="center">
+     <img src=https://github.com/isibardaji/P3/blob/bardaji-cot/img/comparaci%C3%B3_pitch_rl002f0.png>
 
      A continuació observem el pitch de la senyal obtingut per la pròpia senyal
 
-    <img src="/PAV/P3/img/comparacio_pitch_rl002f0ref.png" align="center">
+    <img src=https://github.com/isibardaji/P3/blob/bardaji-cot/img/comparacio_pitch_rl002f0ref.png>
 
     Pel que fa al contorn de pitch realitzat pel wavesurfer, en els dos casos és bastant similar.
 
 
     A continuació mostrem la comparació del pitch amb el pitch de referència amb unes gràfiques on es poden observar millor els detalls:
 
-  <img src="/PAV/P3/img/pitch_pitchref_python.png" align="center">
+  <img src=https://github.com/isibardaji/P3/blob/bardaji-cot/img/pitch_pitchref_python.png>
 
 		Aunque puede usar el propio Wavesurfer para obtener la representación, se valorará
 	 	el uso de alternativas de mayor calidad (particularmente Python).
@@ -90,7 +93,7 @@ Ejercicios básicos
     y el *score* TOTAL proporcionados por `pitch_evaluate` en la evaluación de la base de datos 
 	`pitch_db/train`..
 
-  <img src="/PAV/P3/img/tanxcent_sense_ampliables.png" align="center">
+  <img src=https://github.com/isibardaji/P3/blob/bardaji-cot/img/tanxcent_sense_ampliables.png>
 
   
 
