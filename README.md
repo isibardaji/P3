@@ -15,23 +15,32 @@ Ejercicios básicos
 
    * Complete el cálculo de la autocorrelación e inserte a continuación el código correspondiente.
 
-   <img src="/PAV/P3/img/codi_autocorrelacio.png" align="center">
+
+   <img src=https://github.com/isibardaji/P3/blob/bardaji-cot/img/codi_autocorrelacio.png>
+   
+   
 
    * Inserte una gŕafica donde, en un *subplot*, se vea con claridad la señal temporal de un segmento de
      unos 30 ms de un fonema sonoro y su periodo de pitch; y, en otro *subplot*, se vea con claridad la
 	 autocorrelación de la señal y la posición del primer máximo secundario.
-  <img src="/PAV/P3/img/gràfica_py.png" align="center"> 
+	 
+  <img src=https://github.com/isibardaji/P3/blob/bardaji-cot/img/gr%C3%A0fica_py.png> 
+  
 	 NOTA: es más que probable que tenga que usar Python, Octave/MATLAB u otro programa semejante para
 	 hacerlo. Se valorará la utilización de la biblioteca matplotlib de Python.
 
    * Determine el mejor candidato para el periodo de pitch localizando el primer máximo secundario de la
      autocorrelación. Inserte a continuación el código correspondiente.
 
-    <img src="/PAV/P3/img/Codi_localitzacio_primer_max_secundari_autocorrelacio.png" align="center"> 
+
+    <img src=https://github.com/isibardaji/P3/blob/bardaji-cot/img/Codi_localitzacio_primer_max_secundari_autocorrelacio.png> 
+
 
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
 
-    <img src="/PAV/P3/img/unnvoiced.png" align="center">
+
+    <img src=https://github.com/isibardaji/P3/blob/bardaji-cot/img/unnvoiced.png>
+
 
    * Puede serle útil seguir las instrucciones contenidas en el documento adjunto `código.pdf`.
 
@@ -55,12 +64,15 @@ Ejercicios básicos
 
       Gràfica tram sonor
 
-    <img src="/PAV/P3/img/tram_sonor_15ms.png" align="center">
+
+    <img src=https://github.com/isibardaji/P3/blob/bardaji-cot/img/tram_sonor_15ms.png>
 
       
       Gràfica tram sord
 
-    <img src="/PAV/P3/img/tram_sord_15ms.png" align="center">
+
+    <img src=https://github.com/isibardaji/P3/blob/bardaji-cot/img/tram_sord_15ms.png>
+
 
       En la gràfica de d'alt de tot tenim la gràfica de l'autocorrelació. Amb aquesta, podem determinar un umbral de umaxnorm d'aproximadamtn 0.6. En la segona gràfica observem l'autocorrelació normalitzada. Podem determinar un umbral per l'autocorrelació normalitzada al voltant de l'1. A la tercera gràfica hi ha la potència, que podriem deterinar un umbral al voltant dels -40.
       
@@ -70,18 +82,24 @@ Ejercicios básicos
      
      A continuació observem el pitch de la senyal obtingut amb la nostra versió del sistema.
 
-     <img src="/PAV/P3/img/comparació_pitch_rl002f0.png" align="center">
+
+     <img src=https://github.com/isibardaji/P3/blob/bardaji-cot/img/comparaci%C3%B3_pitch_rl002f0.png>
+
 
      A continuació observem el pitch de la senyal obtingut per la pròpia senyal
 
-    <img src="/PAV/P3/img/comparacio_pitch_rl002f0ref.png" align="center">
+
+    <img src=https://github.com/isibardaji/P3/blob/bardaji-cot/img/comparacio_pitch_rl002f0ref.png>
+
 
     Pel que fa al contorn de pitch realitzat pel wavesurfer, en els dos casos és bastant similar.
 
 
     A continuació mostrem la comparació del pitch amb el pitch de referència amb unes gràfiques on es poden observar millor els detalls:
 
-  <img src="/PAV/P3/img/pitch_pitchref_python.png" align="center">
+
+  <img src=https://github.com/isibardaji/P3/blob/bardaji-cot/img/pitch_pitchref_python.png>
+
 
 		Aunque puede usar el propio Wavesurfer para obtener la representación, se valorará
 	 	el uso de alternativas de mayor calidad (particularmente Python).
@@ -90,7 +108,8 @@ Ejercicios básicos
     y el *score* TOTAL proporcionados por `pitch_evaluate` en la evaluación de la base de datos 
 	`pitch_db/train`..
 
-  <img src="/PAV/P3/img/tanxcent_sense_ampliables.png" align="center">
+
+  <img src=https://github.com/isibardaji/P3/blob/bardaji-cot/img/tanxcent_sense_ampliables.png>
 
   
 
@@ -107,13 +126,13 @@ Ejercicios de ampliación
   * Inserte un *pantallazo* en el que se vea el mensaje de ayuda del programa y un ejemplo de utilización
     con los argumentos añadidos.
 
-  <img src="/PAV/P3/img/missatge_help_programa.png" align="center">
+  <img src=https://github.com/isibardaji/P3/blob/bardaji-cot/img/missatge_help_programa.png>
 
   Hem afegit tres paràmetres, 'upot' és per referir-nos a l'umbral per la potència, 'umaxnorm' és l'umbral per a referir-nos al màxim de l'autocorrelació normalitzada i 'unorm' és l'umbral de l'autocorrelació normalitzada en 1. Aquests umbrals ens ajuden a l'hora de determinar si un senyal és sord o sonor i així obtenir resultats millors. El que ens facilita la detecció del pitch.
   
   Exemple utilització amb els arguments afegits:
 
-   <img src="/PAV/P3/img/exemple_utilització_umbrals.png" align="center">
+   <img src=https://github.com/isibardaji/P3/blob/bardaji-cot/img/exemple_utilitzaci%C3%B3_umbrals.png>
 
 
 - Implemente las técnicas que considere oportunas para optimizar las prestaciones del sistema de estimación
@@ -127,7 +146,9 @@ Ejercicios de ampliación
 
   Amb aquesta tècnica fiquem a zero els trams de la senyal que es trobin entre dos umbrals definits. Amb aquest mètode el que aconseguim és eliminar, ficar a zero els instants de temps en que la senyal té una amplitud menor. Am això aconseguim robustesa devant del soroll. A més, s'intenta eliminar els trams on no hi hagi periodicitat, i quedar-se només amb aquesta, el que fa destacar més els formants en el domini freqüencial. També mencionar que hem triat aquest mètode ja que al anul·lar aquests valors, introduim una distorció lineal, el que fa augmentar la intensitat dels harmònics d'ordre elevat, cosa que ens interesa pel mencionat anteriorment.
 
-   <img src="/PAV/P3/img/center_clipping.png" align="center">
+
+   <img src=https://github.com/isibardaji/P3/blob/bardaji-cot/img/center_clipping.png>
+
 
   * Técnicas de postprocesado: filtro de mediana, *dynamic time warping*, etc.
   
@@ -135,16 +156,19 @@ Ejercicios de ampliación
 
   Aquest mètode utilitza una finestra que es va movent al llarg de la senyal. Per implementar-lo, creem un nou vector on guradarem els valors de f0 un cop la senyal hagi passat pel filtre. Amb aquest la finestra, agafem la mostra actual, l'anterior i la posterior i ens quedem amb el valor mig de les tres. Aquest valor el pasem al nou vector. Per tant, ens quedem amb els valors mitjos de les tres mostres (l'actual, l'anterior i la posterior). Hem comprovat que la millor longitud per la finestra és de 3, ja que així es queda només amb una mostra anterior i una posterior, ja que si augmentavem el valor de l obteniem pitjors resultats. El filtre implementat és no recursiu, ja que no altera els valors originals, sinó que els guarda a una altre variable. La ventatje d'utilitzar aquest filtre és que el valor final de f0 és un valor real de la senyal i no un promig.
 
-  <img src="/PAV/P3/img/filtre_de_mitjana.png" align="center">
+
+  <img src=https://github.com/isibardaji/P3/blob/bardaji-cot/img/filtre_de_mitjana.png>
 
   
   A continuació mostrem el tant per cent que ens queda si realitzem el filtre de mitjana amb una l=5, en comptes de l=3
 
   Amb l=5
-  <img src="/PAV/P3/img/tantxcent_ambl=5.png" align="center">
+  
+  <img src=https://github.com/isibardaji/P3/blob/bardaji-cot/img/tantxcent_ambl%3D5.png>
 
   Amb l=3
-  <img src="/PAV/P3/img/tanxcent_amb_ampliables.png" align="center">
+  
+  <img src=https://github.com/isibardaji/P3/blob/bardaji-cot/img/tanxcent_amb_ampliables.png>
 
 
   Si comparem el resultat amb el que obtenim amb l=3, podem observar que detecta pitjor les trames no veu com a veu i els errors de veu són més elevats. En canvi, pel que fa a trames de veu detectades com a no veu, no varia. Tot i això, els dos primer paràmetres fan que tinguem un MSE d'errors fins més elevat amb l=5. Per tant, descartem aquesta l i ens quedem amb la l=3, on tenim uns erros lleugerament menors i obtenim millors resultats.
@@ -161,7 +185,9 @@ Ejercicios de ampliación
   Incluya, a continuación, una explicación de las técnicas incorporadas al estimador. Se valorará la
   inclusión de gráficas, tablas, código o cualquier otra cosa que ayude a comprender el trabajo realizado.
 
-  <img src="/PAV/P3/img/tanxcent_amb_ampliables.png" align="center">
+
+  <img src=https://github.com/isibardaji/P3/blob/bardaji-cot/img/tanxcent_amb_ampliables.png>
+
 
   Podem observar una gran millora amb els processos aplicats de center clipping i filtre de mediana respecte al resultat sense aplicar-los.
 
